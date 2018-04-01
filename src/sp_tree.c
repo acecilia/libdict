@@ -366,7 +366,9 @@ remove_node(sp_tree* tree, sp_node* node)
 	temp->parent = parent;
 
     *(parent ? (parent->llink == out ? &parent->llink : &parent->rlink) : &tree->root) = temp;
-    if (parent)
+    if (temp)
+	splay(tree, temp);
+    else if (parent)
 	splay(tree, parent);
     tree->count--;
 }
